@@ -1,0 +1,130 @@
+\documentclass[english]{beamer}
+\usepackage{ae}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Begin of ISIGrowth specific style macros %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{tikz}
+
+\setbeamertemplate{background}{
+	\begin{tikzpicture}
+		\useasboundingbox (0,0) rectangle(\the\paperwidth,\the\paperheight);
+		\ifnum\value{page}=1\relax
+			\node[anchor=south west,inner sep=0] at (-0.005,0) {\includegraphics[width=\paperwidth]{ISIGrowth_background.png}};
+			\node[align=center] at (6.5,0.3) {\Tiny This project has received funding from the European Union Horizon 2020 Research and Innovation action under grant agreement No 649186};
+		\fi
+	\end{tikzpicture}
+}
+
+\setbeamercolor{footlinetext}{fg=black, bg=}
+
+\defbeamertemplate*{footline}{}{
+	\leavevmode%
+	\begin{tikzpicture}
+		\useasboundingbox (0,0) rectangle(\the\paperwidth,0.9);
+		\ifnum\value{page}>1\relax%	
+			\node[anchor=south west,inner sep=0] at (-0.005,-0.01) {\includegraphics[width=\paperwidth]{ISIGrowth_footbar.png}};
+			\node[right] at (2.7,0.575) {\scriptsize
+			\begin{beamercolorbox}[wd=.65\paperwidth,ht=2.25ex,dp=1ex,center]{footlinetext}%
+			\usebeamerfont{footlinetext}\insertshorttitle
+			\end{beamercolorbox}%
+			};  
+			\node[right] at (2.7,0.2) {\scriptsize
+			\begin{beamercolorbox}[wd=.65\paperwidth,ht=2.25ex,dp=1ex,center]{footlinetext}%
+			\usebeamerfont{footlinetext}\insertshortauthor\hfill\insertshortdate{}\hfill\insertframenumber{}/\inserttotalframenumber
+			\end{beamercolorbox}%	
+			};
+		\fi
+	\end{tikzpicture}
+	\vskip0pt%
+}
+
+\setbeamertemplate{navigation symbols}{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% End of ISIGrowth specific style macros %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title[Beamer customisation for the ISIGrowth project]{Beamer customisation for the ISIGrowth project}
+\author[Jacopo Staccioli]{Jacopo Staccioli}
+\institute{\textsl{Scuola Superiore Sant'Anna}\\[3ex] \texttt{j.staccioli@santannapisa.it}}
+\date[Pisa, \today]{Pisa, \today}
+
+\begin{document}
+
+\begin{frame}
+\vspace{5ex} % adjust the vertical offset if title covers the ISIGrowth logo
+\titlepage
+\end{frame}
+
+\begin{frame}
+\frametitle{Premise}
+This document, together with the associated package, aims at providing a \LaTeX\ implementation of the \texttt{beamer} class fully consistent with the ISIGrowth official graphic design.\\
+\bigskip
+Customisation is purposefully introduced in terms of \texttt{beamer} style macros, rather than as a standalone \texttt{beamer} theme, to preserve the greatest deal of flexibility on the user side.
+\end{frame}
+
+\begin{frame}
+\frametitle{Contents}
+\tableofcontents
+\end{frame}
+
+\section{Structure and usage}
+
+\begin{frame}
+\frametitle{Structure and usage}
+The package consists of four distinct files:
+\begin{description}
+\item[\texttt{ISIGrowth\_template.pdf}]: \emph{this} very document
+\item[\texttt{ISIGrowth\_template.tex}]: the source code of \emph{this} document
+\item[\texttt{ISIGrowth\_background.png}]: the \texttt{titlepage} background image
+\item[\texttt{ISIGrowth\_footer.png}]: the \texttt{footer} image
+\end{description}
+\bigskip
+In order to adopt the proposed macros it is sufficient to:
+\begin{enumerate}
+\item modify the \texttt{.tex} file as needed\footnote{otherwise, copy the specific file macros (highlighted) in your own \emph{preamble}}
+\item enclose the two \texttt{.png} files within the same directory
+\item compile with your preferred \LaTeX\ engine
+\end{enumerate}
+\end{frame}
+
+\section{Compatibility}
+
+\begin{frame}
+\frametitle{Compatibility}
+The provided macros do \emph{not} constitute a theme and are neither theme-specific, nor style-specific, beyond what is hereby defined.\\
+\bigskip 
+In principle, they should be compatible with all the built-in \texttt{beamer} themes, as long as the theme is called \underline{\emph{before}} the macros are defined in the underlying \texttt{.tex} file preamble.\\
+\bigskip
+Feel free to choose your favourite \texttt{beamer} theme\footnote{The \texttt{default} theme is used in \emph{this} very presentation} but make sure the code complies with the aforementioned ordering.
+\end{frame}
+
+\section{Title page}
+
+\begin{frame}[fragile]
+\frametitle{Title page}
+The \texttt{titlepage} is defined as a \texttt{plain}-style frame with a locally defined background image covering the whole available space.\\
+\bigskip
+If necessary, adjust the \verb|\vspace{}| offset before calling \verb|\maketitle| or or \verb|\titlepage| in order to prevent the writings from covering the ISIGrowth logo.\\
+\bigskip
+CAUTION! Since the original background image is in 4:3 aspect ratio, any layout different from 4:3 is incompatible with the proposed macros.
+\end{frame}
+
+\section{Frame footer}
+
+\begin{frame}
+\frametitle{Frame footer}
+Every frame other than the \texttt{titlepage} contains a bottom footer.\\
+\bigskip
+The footer consists of an image bar and two dynamic containers:
+\begin{itemize}
+\item the first only shows the \texttt{shorttitle} variable\
+\item the second encloses the \texttt{shortauthor} and the \texttt{shortdate} variables, and a \texttt{n/N} frame counter
+\end{itemize}
+\bigskip
+CAUTION! Had the frame body been longer than available space, the exceeding part would just disappear behind the footer.
+\end{frame}
+
+\end{document}
